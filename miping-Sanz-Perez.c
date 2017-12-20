@@ -43,6 +43,21 @@ void checkProgramArguments(int argc, char *argv[])
 
 int main(int argc, char **argv)
 {
+    int udp_socket; /* udp socket */
+
     printf("-- Welcome to TFTP client --\n");
     checkProgramArguments(argc, argv);
+
+    /* create UDP socket */
+    if ((udp_socket = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)) < 0)
+    {
+        error("ERROR opening UDP socket");
+    }
+
+    /* close socket */
+    if (close(udp_socket) < 0)
+    {
+        error("ERROR closing UDP socket");
+    }
+    exit(EXIT_SUCCESS);
 }
